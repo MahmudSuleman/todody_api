@@ -1,0 +1,21 @@
+{
+  "name": "todody_api",
+  "version": "1.0.0",
+  "description": "api for GTL todo application",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "type": "module",
+  "homepage": "",
+  "keywords": [],
+  "author": "Mahmud Suleman Sheikh Mudi Wunnam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^6.0.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
