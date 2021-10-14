@@ -1,11 +1,53 @@
 import express from 'express';
+import TodoModel from "../schemas/todo_schema.js";
 
 const router = express.Router();
 
-router.get('/new-todo', (req, res)=>{
-    res.status(200).json({
-        message: 'new todo'
+// get all todos
+router.get("/", async (req, res) => {
+
+    try {
+        const todoModel = await TodoModel.find({});
+        if(todoModel){
+            return res.status(200).json({
+                message:'Todos fetched',
+                status: true,
+                data: todoModel
+            })
+        }else{
+            return res.status(404).json({
+                message: 'No todos found',
+                status: false,
+                data: todoModel
+            })
+        }
+    }catch(err){
+        console.log(err);
+    }
+
+
+});
+
+
+///update a todo
+router.patch("/:id", async(req, res) => {
+    const {id} = req.params;
+    const {status}  = req.body;
+
+    const todoModel = await TodoModel.findOneAndUpdate({_id:id},{status: status});
+
+    if(todoModel){
+        return res.status(200).json({
+            message: "Todo updated",
+            status: true,
+            data: todoModel
+        });
+    }
+    return res.status(404).json({
+        message: "Failed to updated Todo",
+        status: false,
+        data: todoModel
     });
-})
+});
 
 export default router;
