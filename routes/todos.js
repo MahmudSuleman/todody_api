@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res) => {
 
     try {
-        const todoModel = await TodoModel.find({});
+        const todoModel = await TodoModel.find({}).where({status:false});
         if(todoModel){
             return res.status(200).json({
                 message:'Todos fetched',
