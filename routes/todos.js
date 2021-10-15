@@ -29,12 +29,30 @@ router.get("/", async (req, res) => {
 });
 
 
+router.get('/completed', (async(req, res) =>  {
+    const todos = await TodoModel.find({}).where({status:true});
+
+    if(todos){
+        return res.status(200).json({
+            message: "Completed todos",
+            status: true,
+            data: todos
+        });
+    }
+    return res.status(404).json({
+        message: "Failed to get Completed todos",
+        status: false,
+        data: todos
+    });
+}));
+
 ///update a todo
 router.patch("/:id", async(req, res) => {
     const {id} = req.params;
     const {status}  = req.body;
 
     const todoModel = await TodoModel.findOneAndUpdate({_id:id},{status: status});
+
 
     if(todoModel){
         return res.status(200).json({
